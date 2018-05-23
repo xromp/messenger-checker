@@ -1,0 +1,14 @@
+<div ng-controller="InvalidWordCheckerCtrl as ic">
+    <div class="well well-lg default-panel">
+        <p ng-bind-html="ic.messageDet.wordsCheckerDom" style="word-break: break-all"></p>
+    </div>
+    <textarea name="" id="" cols="30" rows="4" class="form-control" ng-model="ic.messageDet.message" ng-disabled="ic.messageDet.isSent"></textarea>
+    <div class="form-group">
+        
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" ng-click="ic.clear()">Clear</button>
+        <button class="btn btn-success" ng-hide="ic.messageDet.isSent" ng-click="ic.submit(ic.messageDet)">Send</button>
+        <button class="btn btn-success" ng-show="ic.messageDet.isSent" ng-click="ic.edit(ic.messageDet)">Edit</button>
+    </div>
+</div>

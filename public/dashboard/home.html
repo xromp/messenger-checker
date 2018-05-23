@@ -1,0 +1,20 @@
+<div ng-controller="HomeCtrl as hc">
+	<div class="list-group default-panel">
+		<a href="#" class="list-group-item" ng-class="{'active':word.selected}" ng-repeat="word in hc.invalidWordList" ng-click="hc.selected(word)">
+			{{word.desc}}
+		</a>
+	</div>
+
+	<form name="hc.frmInvalidWordEntry" novalidate>
+		<div class="form-group" ng-class="{'text-danger': hc.frmInvalidWordEntry.desc.$invalid && hc.frmInvalidWordEntry.withError }">
+			<input type="text" class="form-control" name="desc" ng-model="hc.invalidWordDet.desc" ng-focus="hc.cancelDeletion()" placeholder="Type a word" required>
+			<small class="text-danger" ng-show="hc.frmInvalidWordEntry.desc.$invalid && hc.frmInvalidWordEntry.withError">Word is a required field.</small>
+		</div>			
+	</form>
+
+	<div class="form-group">
+		<button class="btn btn-default" ng-click="hc.clear()">Clear</button>
+		<button class="btn btn-success" ng-hide="hc.hasSelected" ng-click="hc.addWord(hc.invalidWordDet)">Add</button>
+		<button class="btn btn-success" ng-show="hc.hasSelected" ng-click="hc.removeWord()">Delete</button> 
+	</div>
+</div>

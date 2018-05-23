@@ -1,0 +1,14 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title"><a href="" ng-click="dc.changeView(dc.activeView)">{{dc.activeView.desc}}</a></h3>
+	</div>
+	<div class="panel-body">
+		<div ng-if="dc.activeView.code == 'HOME'" ng-include="'dashboard/home.html'"></div>
+		<div ng-if="dc.activeView.code == 'INVALIDWORDS'"ng-include="'dashboard/invalidWordChecker.html'"></div>
+	</div>
+</div>
+<style>
+textarea {
+   resize: none;
+}
+</style>
