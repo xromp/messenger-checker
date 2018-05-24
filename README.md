@@ -1,4 +1,4 @@
-# messenger-checker
+# Messenger Checker
 
 You may check out the live demo [here](https://messengerchecker-37cd9.firebaseapp.com)
 
