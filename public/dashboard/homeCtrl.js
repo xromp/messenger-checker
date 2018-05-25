@@ -52,7 +52,7 @@
                 angular.forEach(vm.invalidWordList, function(v,k){
                     if (v.selected) vm.invalidWordList.splice(k, 1);;
                 });
-                
+                vm.hasSelected = false;
             };
 
             vm.cancelDeletion = function(){
@@ -80,32 +80,22 @@
 
                 angular.forEach(wordArr, function(v, k){
                     var newWord = v;
-                    var hasManyBannedWords = false;
 
                     bannedWords.some(v2=>{
-                        if (v.toLowerCase().includes(v2.desc.toLowerCase())) {
-                            var newWordArr = v;
-                            var regX = new RegExp(v2.desc,'gi');
+                        var isInvalid = new RegExp("\\b"+ v2.desc +"\\b","i").test(v);
 
-                            if (!hasManyBannedWords) {
-                                newWord = v.replace(regX, function(str, offset, s){
-                                    var result = '<span class="text-danger">'+str+'</span>';
-                                    return result;
-                                });                                
-                            } else {
-                                newWord = newWord.replace(regX, function(str, offset, s){
-                                    var result = '<span class="text-danger">'+str+'</span>';
-                                    return result;
-                                });                                
-                            }
-                            hasManyBannedWords = true;
+                        if (isInvalid) {
+                            var regX = new RegExp(v2.desc,'gi')
+                            newWord = v.replace(regX, function(str, offset, s){
+                                var result = '<span class="text-danger">'+str+'</span>';
+                                return result;
+                            });
                         }
                     });
 
                     dom = dom + " " + newWord;
                     vm.messageDet.wordsCheckerDom = dom;
                     vm.messageDet.wordsChecker = dataCopy;
-                    
                 });
 
                 data.message = '';

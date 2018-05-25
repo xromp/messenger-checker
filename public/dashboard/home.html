@@ -7,8 +7,9 @@
 
 	<form name="hc.frmInvalidWordEntry" novalidate>
 		<div class="form-group" ng-class="{'text-danger': hc.frmInvalidWordEntry.desc.$invalid && hc.frmInvalidWordEntry.withError }">
-			<input type="text" class="form-control" name="desc" ng-model="hc.invalidWordDet.desc" ng-focus="hc.cancelDeletion()" placeholder="Type a word" required>
-			<small class="text-danger" ng-show="hc.frmInvalidWordEntry.desc.$invalid && hc.frmInvalidWordEntry.withError">Word is a required field.</small>
+			<input type="text" class="form-control" name="desc" ng-model="hc.invalidWordDet.desc" ng-focus="hc.cancelDeletion()" ng-pattern="/^[a-zA-Z]*$/" placeholder="Type a word" required>
+			<small class="text-danger" ng-show="hc.frmInvalidWordEntry.desc.$error.pattern && hc.frmInvalidWordEntry.withError">Allowing word(s) only - no spaces, special characters or numbers.</small>
+			<small class="text-danger" ng-show="hc.frmInvalidWordEntry.desc.$error.required && hc.frmInvalidWordEntry.withError">Word is a required field.</small>
 		</div>			
 	</form>
 
