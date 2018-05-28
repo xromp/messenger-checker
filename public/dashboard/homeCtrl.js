@@ -71,22 +71,34 @@
         function InvalidWordCheckerCtrl($window){
             var vm = this;
 
+            var getWordOnly = function(y) {
+                var lower = y.toLowerCase();
+                var upper = y.toUpperCase();
+            
+                var res = "";
+                for(var i=0; i<lower.length; ++i) {
+                    if (lower[i] != upper[i] || (lower[i] == upper[i] && !(i == 0 || i == lower.length-1) )) res += y[i]; // append when not special char
+                }
+                return res;
+            };
+
             vm.submit = function (data) {
                 var dataCopy = angular.copy(data.message);                
                 var wordArr = dataCopy.split(" ");
+                var bannedWords = angular.fromJson($window.localStorage.getItem('invalidwords'));                
                 var dom = "";
-                
-                var bannedWords = angular.fromJson($window.localStorage.getItem('invalidwords'));
 
                 angular.forEach(wordArr, function(v, k){
                     var newWord = v;
 
-                    bannedWords.some(v2=>{
-                        var isInvalid = new RegExp("\\b"+ v2.desc +"\\b","i").test(v);
+                    bannedWords.some(banWord=>{
+                        var isInvalid = getWordOnly(v).toLowerCase() == banWord.desc.toLowerCase();
 
                         if (isInvalid) {
-                            var regX = new RegExp(v2.desc,'gi')
-                            newWord = v.replace(regX, function(str, offset, s){
+                            var strPosition =  v.toLowerCase().indexOf(banWord.desc.toLowerCase());
+                            var exactWord = v.substr(strPosition, banWord.desc.length);
+
+                            newWord = v.replace(exactWord, function(str, offset, s){
                                 var result = '<span class="text-danger">'+str+'</span>';
                                 return result;
                             });
